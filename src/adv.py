@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -38,14 +38,38 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+player = Player('Irving', room['outside'])
+print(player)
+# userInput = ""
 # Write a loop that:
 #
+while True:
+
 # * Prints the current room name
+    print(player.location.name)
 # * Prints the current description (the textwrap module might be useful here).
+    print(player.location.description)
 # * Waits for user input and decides what to do.
-#
+    user_input = input(
+        "where do you want go? (N)orth, (S)outh, (E)ast, or (W)est?")
 # If the user enters a cardinal direction, attempt to move to the room there.
+    if(user_input == 'n' or user_input == 'N'):
+        target = player.location.n_to
+    # print(current_room.n_to)
+    elif(user_input == 's' or user_input == 'S'):
+        target = player.location.s_to
+    elif(user_input == 'e' or user_input == 'E'):
+        target = player.location.e_to
+    elif(user_input == 'w' or user_input == 'W'):
+        target = player.location.w_to
+    elif(user_input == 'q' or user_input == 'Q'):
+        break
+    else:
+        print("invalid input")
+
+    if(target != None):
+        player.move(target)
+    else: print("cant go there")
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
