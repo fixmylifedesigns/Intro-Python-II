@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -36,11 +36,27 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
-
+player = Player("Irving", room['outside'])
+print(player)
+print(player.location.name)
+print(player.location.description)
 # Make a new player object that is currently in the 'outside' room.
 
 # Write a loop that:
-#
+while True:
+    user_input = input(
+        "which direction would you like to go? N , S, W, E or Q to quit: "
+    )
+    if(user_input == "n" or user_input == "s" or user_input == "w" or user_input == "e" ):
+        if(getattr(player.location, f"{user_input}_to") is not None):
+            player.move(getattr(player.location, f"{user_input}_to"))
+            print(f"\n {player.location}")
+        else:
+            print("Can't go that way..")
+    if(user_input == 'q'):
+        break
+    else:
+        print("Invalid input")
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
